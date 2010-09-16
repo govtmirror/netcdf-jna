@@ -401,12 +401,31 @@ public class NC  {
 
 /* Get a list of ids for all the variables in a group. */
 //int nc_inq_varids(int ncid, int *nvars, int *varids);
+    public static native int nc_inq_varids(int ncid, IntByReference nvars, int[] varids);
+    
+    public static int nc_inq_varids(int ncid, int[] varids) {
+    	return nc_inq_varids(ncid, null, varids);
+    }
+    public static  int nc_inq_var_count(int ncid, IntByReference nvars) {
+    	return nc_inq_varids(ncid, nvars, null);
+    }
+   
+
 
 /* Find all dimids for a location. This finds all dimensions in a
  * group, or any of its parents. */
 //int
 //nc_inq_dimids(int ncid, int *ndims, int *dimids, int include_parents);
-
+    public static native int nc_inq_dimids(int ncid, IntByReference ndims, int[] dimids, int include_parents);
+    
+    public static int nc_inq_dimids(int ncid, int[] dimids) {
+    	return nc_inq_dimids(ncid, null, dimids, 1);
+    }
+    public static int nc_inq_dim_count(int ncid, IntByReference ndims) {
+    	return nc_inq_dimids(ncid, ndims, null, 1);
+    }
+    
+    
 /* Find all user-defined types for a location. This finds all
  * user-defined types in a group. */
 //int
@@ -582,7 +601,8 @@ public class NC  {
 /* Read an attribute of any type. */
 //int
 //nc_get_att(int ncid, int varid, const char *name, void *ip);
-
+    public static native int nc_get_att(int ncid, int varid, String name, Pointer ip);
+    
 /* Enum type. */
 
 /* Create an enum type. Provide a base type and a name. At the moment
@@ -814,10 +834,12 @@ public class NC  {
 
 //int
 //nc_inq_unlimdim(int ncid, int *unlimdimidp);
+    public static native int nc_inq_unlimdim(int ncid, IntByReference unlimdimidp);
 
 /* The next function is for NetCDF-4 only */
 //int
 //nc_inq_unlimdims(int ncid, int *nunlimdimsp, int *unlimdimidsp);
+    public static native int nc_inq_unlimdims(int ncid, IntByReference nunlimdimsp, int[] unlimdimidp);
 
 /* Added in 3.6.1 to return format of netCDF file. */
 //int
@@ -839,6 +861,7 @@ public class NC  {
 
 //int
 //nc_inq_dimname(int ncid, int dimid, char *name);
+	public static native int nc_inq_dimname(int ncid, int dimid, ByteBuffer name);
 
 //int
 //nc_inq_dimlen(int ncid, int dimid, size_t *lenp);
@@ -853,6 +876,8 @@ public class NC  {
 //int
 //nc_inq_att(int ncid, int varid, const char *name,
 //        nc_type *xtypep, size_t *lenp);
+	public static native int nc_inq_att(int ncid, int varid, byte[] name,
+			IntByReference xtypep, NativeLongByReference lenp);
 
 //int
 //nc_inq_attid(int ncid, int varid, const char *name, int *idp);
@@ -865,6 +890,7 @@ public class NC  {
 
 //int
 //nc_inq_attname(int ncid, int varid, int attnum, char *name);
+	public static native int nc_inq_attname(int ncid, int varid, int attnum, ByteBuffer name);
 
 //int
 //nc_copy_att(int ncid_in, int varid_in, const char *name, int ncid_out, int varid_out);
@@ -1254,14 +1280,16 @@ public class NC  {
 //int
 //nc_inq_var(int ncid, int varid, char *name, nc_type *xtypep,
 //        int *ndimsp, int *dimidsp, int *nattsp);
-
+    public static native int nc_inq_var(int ncid, int varid, ByteBuffer name, IntByReference xtypep, 
+    		IntByReference ndimsp, int[] dimidsp, IntByReference nattsp);
+    
 //int
 //nc_inq_varid(int ncid, const char *name, int *varidp);
 	public static native int nc_inq_varid(int ncid, String name, IntByReference varidp);
 
 //int
 //nc_inq_varname(int ncid, int varid, char *name);
-
+	public static native int nc_inq_varname(int ncid, int varid, ByteBuffer name);
 //int
 //nc_inq_vartype(int ncid, int varid, nc_type *xtypep);
 	public static native int nc_inq_vartype(int ncid, int varid, IntByReference xtypep);
@@ -1283,6 +1311,7 @@ public class NC  {
 
 //int
 //nc_copy_var(int ncid_in, int varid, int ncid_out);
+	public static native int nc_copy_var(int ncid_in, int varid, int ncid_out);
 
 //#ifndef ncvarcpy
 ///* support the old name for now */

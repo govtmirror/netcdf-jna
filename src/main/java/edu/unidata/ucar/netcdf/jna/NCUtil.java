@@ -185,7 +185,7 @@ public class NCUtil {
         status(ncStatus);
     }
 
-	enum XType {
+	public enum XType {
 		NC_NAT(0, -1),		/* NAT = 'Not A Type' (c.f. NaN) */
 		NC_BYTE(1, 1),		/* signed 1 byte integer */
 		NC_CHAR(2, 1),		/* ISO/ASCII character */
@@ -215,7 +215,7 @@ public class NCUtil {
 
 		public static XType findXType(int xType) {
 			if (xType < 0 || xType > values().length) {
-				throw new IllegalArgumentException("explain yourself jordan");
+				throw new IllegalArgumentException("Must provide a valid xtype");
 			} else {
 				return values()[xType];
 			}
