@@ -184,5 +184,42 @@ public class NCUtil {
         ncStatus = nc_put_att(ncId, varId, aname, typeid, new NativeLong(1), buffer);
         status(ncStatus);
     }
-	
+
+	enum XType {
+		NC_NAT(0, -1),		/* NAT = 'Not A Type' (c.f. NaN) */
+		NC_BYTE(1, 1),		/* signed 1 byte integer */
+		NC_CHAR(2, 1),		/* ISO/ASCII character */
+		NC_SHORT(3, 2),		/* signed 2 byte integer */
+		NC_INT(4, 4),		/* signed 4 byte integer */
+		NC_LONG(4, 4),		/* deprecated, but required for backward compatibility. */
+		NC_FLOAT(5, 4),		/* single precision floating point number */
+		NC_DOUBLE(6, 8),	/* double precision floating point number */
+		NC_UBYTE(7, 1),		/* unsigned 1 byte int */
+		NC_USHORT(8, 2),	/* unsigned 2-byte int */
+		NC_UINT(9, 4),		/* unsigned 4-byte int */
+		NC_INT64(10, 8),	/* signed 8-byte int */
+		NC_UINT64(11, 8),	/* unsigned 8-byte int */
+		NC_STRING(12, -1);  /* string */
+
+		int xtype;
+		int sizeBytes;
+
+		XType (int xtype, int sizeBytes) {
+			this.xtype = xtype;
+			this.sizeBytes = sizeBytes;
+		}
+
+		public int getSizeBytes() {
+			return sizeBytes;
+		}
+
+		public static XType findXType(int xType) {
+			if (xType < 0 || xType > values().length) {
+				throw new IllegalArgumentException("explain yourself jordan");
+			} else {
+				return values()[xType];
+			}
+		}
+	}
+
 }
