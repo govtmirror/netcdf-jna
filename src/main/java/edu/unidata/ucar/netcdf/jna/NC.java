@@ -1305,6 +1305,7 @@ public class NC  {
 
 //int
 //nc_inq_varnatts(int ncid, int varid, int *nattsp);
+	public static native int nc_inq_varnatts(int ncid, int varid, IntByReference nattsp);
 
 //int
 //nc_rename_var(int ncid, int varid, const char *name);
