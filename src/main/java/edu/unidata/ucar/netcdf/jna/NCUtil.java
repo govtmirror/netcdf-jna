@@ -151,7 +151,7 @@ public class NCUtil {
 			return sizeBytes;
 		}
 
-		public long getSizeBytes(int count) {
+		public long getSizeBytes(long count) {
 			if (count < 0) {
 				throw new IllegalArgumentException("count parameter < 0");
 			}
