@@ -166,12 +166,18 @@ public class NCUtil {
 			return code;
 		}
 
-		public static XType findXType(int xType) {
-			if (xType < 0 || xType > values().length) {
+		public static XType findXType(int code) {
+			if (code < 0 || code > values().length) {
 				throw new IllegalArgumentException("Must provide a valid xtype");
 			} else {
-				return values()[xType];
+				for (XType xtype : values()) {
+					if (code == xtype.code) {
+						return xtype;
+					}
+				}
 			}
+			return NC_NAT;
+
 		}
 		
 		public static XType findXType(Object o) {
