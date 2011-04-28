@@ -647,10 +647,12 @@ public class NC  {
 /* Write entire var of any type. */
 //int
 //nc_put_var(int ncid, int varid,  const void *op);
+	public static native int nc_put_var(int ncid, int varid, Pointer ip);
 
 /* Read entire var of any type. */
 //int
 //nc_get_var(int ncid, int varid,  void *ip);
+	public static native int nc_get_var(int ncid, int varid, Pointer ip);
 
 /* Write one value. */
 //int
