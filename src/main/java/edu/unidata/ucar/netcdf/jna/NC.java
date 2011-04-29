@@ -2052,6 +2052,9 @@ public class NC  {
 
 //int
 //nc_get_var_double(int ncid, int varid, double *ip);
+	public static native int nc_get_var_double(int ncid, int varid, Pointer ip);
+	public static native int nc_get_var_double(int ncid, int varid, DoubleBuffer ip);
+	public static native int nc_get_var_double(int ncid, int varid, double[] ip);
 
 //int
 //nc_put_var_ubyte(int ncid, int varid, const unsigned char *op);
