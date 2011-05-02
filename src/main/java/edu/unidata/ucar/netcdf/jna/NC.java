@@ -675,19 +675,52 @@ public class NC  {
 //        const size_t *countp, const void *op);
     private static native int nc_put_vara(int ncid, int varid, Buffer startp,
             Buffer countp, Buffer op);
+    private static native int nc_put_vara(int ncid, int varid, Buffer startp,
+            Buffer countp, Pointer op);
+    
     public static int nc_put_vara(int ncid, int varid, NativeLong[] startp,
             NativeLong[] countp, Buffer op) {
         return nc_put_vara(ncid, varid, toBuffer(startp), toBuffer(countp), op);
     }
+    public static int nc_put_vara(int ncid, int varid, NativeLong[] startp,
+            NativeLong[] countp, Pointer op) {
+        return nc_put_vara(ncid, varid, toBuffer(startp), toBuffer(countp), op);
+    }
+    
     // convenience for 1d variables
     public static native int nc_put_vara(int ncid, int varid,
             NativeLongByReference startp, NativeLongByReference countp,
             Buffer op);
+    public static native int nc_put_vara(int ncid, int varid,
+            NativeLongByReference startp, NativeLongByReference countp,
+            Pointer op);
 
 /* Read an array of values. */
 //int
 //nc_get_vara(int ncid, int varid,  const size_t *startp,
 //        const size_t *countp, void *ip);
+    private static native int nc_get_vara(int ncid, int varid, Buffer startp,
+            Buffer countp, Buffer ip);
+    private static native int nc_get_vara(int ncid, int varid, Buffer startp,
+            Buffer countp, Pointer ip);
+    
+    public static int nc_get_vara(int ncid, int varid, NativeLong[] startp,
+            NativeLong[] countp, Buffer ip) {
+        return nc_get_vara(ncid, varid, toBuffer(startp), toBuffer(countp), ip);
+    }
+    public static int nc_get_vara(int ncid, int varid, NativeLong[] startp,
+            NativeLong[] countp, Pointer ip) {
+        return nc_get_vara(ncid, varid, toBuffer(startp), toBuffer(countp), ip);
+    }
+    
+    // convenience for 1d variables
+    public static native int nc_get_vara(int ncid, int varid,
+            NativeLongByReference startp, NativeLongByReference countp,
+            Buffer ip);
+    public static native int nc_get_vara(int ncid, int varid,
+            NativeLongByReference startp, NativeLongByReference countp,
+            Pointer ip);
+    
 
 /* Write slices of an array of values. */
 //int
