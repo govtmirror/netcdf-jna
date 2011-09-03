@@ -20,7 +20,7 @@ public class NCUtil {
 
     public static void status(int status) {
         if(status != NC_NOERR) {
-            System.out.println(nc_strerror(status));
+            throw new RuntimeException(nc_strerror(status));
         }
     }
 
@@ -196,13 +196,13 @@ public class NCUtil {
 				return NC_INT;
 			}
 			if (clazz == long.class) {
-				return NC_LONG;
+				return NC_INT64;
 			}
 			if (clazz == float.class) {
-				return NC_DOUBLE;
+				return NC_FLOAT;
 			}
 			if (clazz == double.class) {
-				return NC_LONG;
+				return NC_DOUBLE;
 			}
 
 			return NC_NAT;
