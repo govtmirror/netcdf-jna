@@ -29,7 +29,11 @@ import java.nio.ShortBuffer;
  */
 public class NC  {
 
+    public final static String JNA_PROPERTY_NAME = "jna.library.path";
+    
     static {
+        String libpath = NCUtil.loadNativeLibraryFromJar("netcdf");
+        System.setProperty(JNA_PROPERTY_NAME, libpath);
         Native.register("netcdf");
     }
 

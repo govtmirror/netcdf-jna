@@ -7,6 +7,21 @@
 	<version>4.1-SNAPSHOT</version>
 	<name>netcdf-jna (4.1)</name>
 	<url>http://maven.apache.org</url>
+
+	<repositories>
+		<repository>
+            <id>cida-gdp-development</id>
+            <name>CIDA GDP Development</name>
+            <url>http://igsarmewfsbbl.er.usgs.gov:8081/nexus/content/groups/cida-gdp-development</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+	</repositories>
 	<build>
 		<plugins>
 			<plugin>
@@ -31,7 +46,7 @@
 		<dependency>
 			<groupId>net.java.dev.jna</groupId>
 			<artifactId>jna</artifactId>
-			<version>3.2.4</version>
+			<version>3.2.7</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
