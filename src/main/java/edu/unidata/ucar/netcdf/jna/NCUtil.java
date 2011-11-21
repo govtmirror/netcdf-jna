@@ -162,6 +162,7 @@ public class NCUtil {
         if (url.getProtocol().toLowerCase().equals("file")) {
             try {
                 lib = new File(new URI(url.toString()));
+                libdir = lib.getParentFile();
             }
             catch(URISyntaxException e) {
                 lib = new File(url.getPath());

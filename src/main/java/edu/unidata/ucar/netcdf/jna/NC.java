@@ -5,6 +5,7 @@
 
 package edu.unidata.ucar.netcdf.jna;
 
+import com.sun.jna.Memory;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
@@ -13,6 +14,7 @@ import com.sun.jna.ptr.DoubleByReference;
 import com.sun.jna.ptr.FloatByReference;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.NativeLongByReference;
+import com.sun.jna.ptr.PointerByReference;
 import com.sun.jna.ptr.ShortByReference;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -1582,7 +1584,39 @@ public class NC  {
 //int
 //nc_put_var1_string(int ncid, int varid, const size_t *indexp,
 //        const char **op);
+    
+   /* I am pretty sure this doesn't work, so I'm commenting it out
+     * I really don't know why it doesn't work though
+    private static native int nc_put_var1_string(int ncid, int varid,
+            Buffer indexp, PointerByReference op);
+    private static int nc_put_var1_string(int ncid, int varid,
+            Buffer indexp, String[] op) {
+        Pointer arrPtrs = new Memory(op.length * Pointer.SIZE);
+        Pointer[] strPtrs = new Pointer[op.length];
+        for (String str : op) {
+            byte[] bytes = str.getBytes();
+            Pointer ptr = new Memory(bytes.length);
+            ptr.write(0, bytes, 0, bytes.length);
+        }
+        arrPtrs.write(0, strPtrs, 0, strPtrs.length);
+        PointerByReference pref = new PointerByReference(arrPtrs);
+        return nc_put_var1_string(ncid, varid, indexp, pref);
+    }
 
+    public static int nc_put_var1_string(int ncid, int varid,
+            PointerByReference op, NativeLong... indexp) {
+        return nc_put_var1_string(ncid, varid, toBuffer(indexp), op);
+    }
+    public static int nc_put_var1_string(int ncid, int varid,
+            String[] op, NativeLong... indexp) {
+        return nc_put_var1_string(ncid, varid, toBuffer(indexp), op);
+    }
+    public static int nc_put_var1_string(int ncid, int varid,
+            String op, NativeLong... indexp) {
+        return nc_put_var1_string(ncid, varid, toBuffer(indexp), new String[] { op });
+    } 
+     */
+    
 //int
 //nc_get_var1_string(int ncid, int varid, const size_t *indexp,
 //        char **ip);
