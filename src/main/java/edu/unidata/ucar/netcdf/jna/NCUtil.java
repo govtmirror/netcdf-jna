@@ -145,11 +145,13 @@ public class NCUtil {
         String resourceName = getNativeLibraryResourcePath(Platform.getOSType(), arch, name) + "/" + libname;
         URL url = NCUtil.class.getResource(resourceName);
                 
-        // Add an ugly hack for OpenJDK (soylatte) - JNI libs use the usual
-        // .dylib extension 
-        if (url == null && Platform.isMac()
-            && resourceName.endsWith(".dylib")) {
-            resourceName = resourceName.substring(0, resourceName.lastIndexOf(".dylib")) + ".jnilib";
+        // Some confusoin with correct extension on Mac platform. 
+        if (url == null && Platform.isMac()) {
+            if (resourceName.endsWith(".dylib")) {
+                resourceName = resourceName.substring(0, resourceName.lastIndexOf(".dylib")) + ".jnilib";
+            } else if (resourceName.endsWith(".jnilib")) {
+                resourceName = resourceName.substring(0, resourceName.lastIndexOf(".jnilib")) + ".dylib";
+            }
             url = NCUtil.class.getResource(resourceName);
         }
         if (url == null) {

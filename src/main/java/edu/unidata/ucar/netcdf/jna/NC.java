@@ -5,7 +5,6 @@
 
 package edu.unidata.ucar.netcdf.jna;
 
-import com.sun.jna.Memory;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
@@ -14,7 +13,6 @@ import com.sun.jna.ptr.DoubleByReference;
 import com.sun.jna.ptr.FloatByReference;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.NativeLongByReference;
-import com.sun.jna.ptr.PointerByReference;
 import com.sun.jna.ptr.ShortByReference;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -34,9 +32,14 @@ public class NC  {
     public final static String JNA_PROPERTY_NAME = "jna.library.path";
     
     static {
-        String libpath = NCUtil.loadNativeLibraryFromJar("netcdf");
-        System.setProperty(JNA_PROPERTY_NAME, libpath);
-        Native.register("netcdf");
+        try {
+            Native.register("netcdf");
+        } catch (Error e) {
+            String libpath = NCUtil.loadNativeLibraryFromJar("netcdf");
+            System.setProperty(JNA_PROPERTY_NAME, libpath);
+            Native.register("netcdf");
+        }
+        
     }
 
 //typedef unsigned int size_t;
