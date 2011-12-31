@@ -1,0 +1,50 @@
+## Instructions for building netcdf shared library with statically linked dependencies.  These 
+## instructions could be augmented for use in linux (see ### commented out line below).  libcurl
+## is included with minimal protocol support; file, gopher and http.  Of note is that https is
+## missing, this would require some additional libraries to be include and was deferred in the
+## interest of brevity and current lack of necessity.
+
+mkdir netcdf-static
+cd netcdf-static
+export WORKDIR=$PWD
+
+wget http://www.hdfgroup.org/ftp/lib-external/szip/2.1/src/szip-2.1.tar.gz
+tar zxvf szip-2.1.tar.gz
+cd szip-2.1
+env CPPFLAGS="-I${WORKDIR}/include" LDFLAGS="-L${WORKDIR}/lib" ./configure --with-pic --disable-shared --prefix=${WORKDIR}
+make && make install
+
+cd ..
+
+wget http://zlib.net/zlib-1.2.5.tar.gz
+tar zxvf zlib-1.2.5.tar.gz 
+cd zlib-1.2.5
+# make install will fail if shared library isn't created, so we allow it to be created but don't install it in ${WORKDIR}/lib
+env CPPFLAGS="-I${WORKDIR}/include" LDFLAGS="-L${WORKDIR}/lib" ./configure --sharedlibdir=${WORKDIR}/libignore --prefix=${WORKDIR}
+make && make install
+
+cd ..
+
+wget http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.8.tar.bz2
+tar jxvf hdf5-1.8.8.tar.bz2
+cd hdf5-1.8.8
+env CPPFLAGS="-I${WORKDIR}/include" LDFLAGS="-L${WORKDIR}/lib" ./configure --with-pic --disable-shared --prefix=${WORKDIR}
+make && make install
+
+cd ..
+
+wget http://curl.haxx.se/download/curl-7.23.1.tar.bz2
+tar jxvf curl-7.23.1.tar.bz2
+cd curl-7.23.1
+env CPPFLAGS="-I${WORKDIR}/include" LDFLAGS="-L${WORKDIR}/lib" ./configure --with-pic --disable-shared --prefix=${WORKDIR} --disable-dict --disable-ftp --disable-imap --disable-ldap --disable-ldaps --disable-pop3 --disable-proxy --disable-rtsp --disable-smtp --disable-telnet --disable-tftp --without-ca-bundle --without-gnutls --without-libidn --without-librtmp --without-libssh2 --without-nss --without-ssl
+make && make install
+
+cd ..
+
+wget http://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-4.1.3.tar.gz
+tar zxvf netcdf-4.1.3.tar.gz
+cd netcdf-4.1.3
+# Apple doesn't allow static linking of system libs, should work on linux...
+### env CPPFLAGS="-I${WORKDIR}/include" LDFLAGS="-static -L${WORKDIR}/lib" ./configure  --prefix=${WORKDIR}
+env CPPFLAGS="-I${WORKDIR}/include" LDFLAGS="-L${WORKDIR}/lib" ./configure --prefix=${WORKDIR}
+make && make install

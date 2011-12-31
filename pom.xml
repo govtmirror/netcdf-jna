@@ -1,18 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>netcdf</groupId>
+	<groupId>gov.usgs.cida.netcdf</groupId>
 	<artifactId>netcdf-jna</artifactId>
-	<packaging>jar</packaging>
-	<version>4.1-SNAPSHOT</version>
-	<name>netcdf-jna (4.1)</name>
-	<url>http://maven.apache.org</url>
-
+	<version>4.1.3-1-SNAPSHOT</version>
+	<name>netcdf-jna</name>
 	<repositories>
 		<repository>
             <id>cida-gdp-development</id>
             <name>CIDA GDP Development</name>
-            <url>http://igsarmewfsbbl.er.usgs.gov:8081/nexus/content/groups/cida-gdp-development</url>
+            <url>http://internal.cida.usgs.gov/maven/content/groups/cida-gdp-development</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -60,5 +58,3 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 </project>
-
-
