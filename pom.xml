@@ -20,6 +20,9 @@
             </snapshots>
         </repository>
 	</repositories>
+    <scm>
+        <developerConnection>scm:svn:${cida.svn.url}/usgs/netcdf/netcdf-jna/trunk</developerConnection>
+    </scm>
 	<build>
 		<plugins>
 			<plugin>
@@ -56,5 +59,7 @@
 	</dependencies>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <cida.maven.url>http://internal.cida.usgs.gov/maven</cida.maven.url>
+        <cida.svn.url>https://cida-svn.er.usgs.gov/repos/dev</cida.svn.url>
 	</properties>
 </project>
