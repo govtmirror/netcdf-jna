@@ -19,6 +19,18 @@
             </snapshots>
         </repository>
 	</repositories>
+    <distributionManagement>
+        <repository>
+            <id>cida-releases</id>
+            <name>CIDA Releases</name>
+            <url>${cida.maven.url}/content/repositories/cida-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>cida-snapshots</id>
+            <name>CIDA Snapshots</name>
+            <url>${cida.maven.url}/content/repositories/cida-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
     <scm>
         <developerConnection>scm:svn:https://cida-svn.er.usgs.gov/repos/dev/usgs/netcdf/netcdf-jna/trunk</developerConnection>
     </scm>
