@@ -28,19 +28,27 @@ public class NC {
 
     public final static String JNA_PROPERTY_NAME = "jna.library.path";
     
+    private static NativeLibrary NATIVE_LIBRARY;
+    
     static {
         try {
-            Native.register("netcdf");
+            NATIVE_LIBRARY = NativeLibrary.getInstance("netcdf");
         } catch (Error e) {
             String libpath = NativeLibraryUtil.loadNativeLibraryFromJar("netcdf");
             if ((new File(libpath).exists())) {
                 NativeLibrary.addSearchPath("netcdf", libpath);
-                Native.register("netcdf");
+                NATIVE_LIBRARY = NativeLibrary.getInstance("netcdf");
             }
             else {
                 throw e;
             }
         }
+        Native.register(NATIVE_LIBRARY);
+    }
+    
+    public static void unregister() {
+        Native.unregister();
+        NATIVE_LIBRARY.dispose();
     }
 
 //typedef unsigned int size_t;
